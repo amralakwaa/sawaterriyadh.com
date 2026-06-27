@@ -1,0 +1,171 @@
+// Prisma schema for Riyadh Shades & Metalworks (مظلات وسواتر وأعمال حدادة - الرياض)
+// Learn more: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ===== الخدمات =====
+model Service {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  shortDesc   String
+  description String
+  icon        String
+  image       String
+  features    String // JSON string of string[]
+  priceFrom   String?
+  order       Int      @default(0)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  projects     Project[]
+  faqs         FAQ[]
+  blogPosts    BlogPost[]
+  quoteRequests QuoteRequest[]
+}
+
+// ===== المشاريع / الأعمال =====
+model Project {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String
+  image       String
+  gallery     String // JSON string of string[]
+  location    String
+  area        String?
+  serviceId   String?
+  service     Service? @relation(fields: [serviceId], references: [id])
+  completedAt String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ===== طلبات التسعير =====
+model QuoteRequest {
+  id         String   @id @default(cuid())
+  name       String
+  phone      String
+  email      String?
+  serviceId  String?
+  service    Service? @relation(fields: [serviceId], references: [id])
+  area       String?
+  message    String
+  status     String   @default("new") // new, contacted, quoted, won, lost
+  budget     String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// ===== رسائل التواصل =====
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  email     String?
+  subject   String?
+  message   String
+  status    String   @default("new") // new, read, replied
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ===== مناطق الخدمة =====
+model ServiceArea {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  governorate String
+  description String
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ===== مقالات المدونة =====
+model BlogPost {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String
+  image       String
+  tags        String // JSON string of string[]
+  serviceId   String?
+  service     Service? @relation(fields: [serviceId], references: [id])
+  author      String   @default("فريق التحرير")
+  published   Boolean  @default(true)
+  views       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ===== آراء العملاء =====
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  content   String
+  rating    Int      @default(5)
+  area      String?
+  avatar    String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ===== الأسئلة الشائعة =====
+model FAQ {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  serviceId String?
+  service   Service? @relation(fields: [serviceId], references: [id])
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ===== مميزات الشركة =====
+model Feature {
+  id          String   @id @default(cuid())
+  icon        String
+  title       String
+  description String
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ===== إحصائيات الشركة =====
+model Stat {
+  id    String @id @default(cuid())
+  icon  String
+  label String
+  value String
+  order Int    @default(0)
+}
+
+// ===== إعدادات الموقع =====
+model SiteSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
+
+// ===== الخطوات / مراحل العمل =====
+model ProcessStep {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  icon        String
+  order       Int      @default(0)
+}
