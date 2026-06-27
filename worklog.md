@@ -750,3 +750,48 @@ Unresolved / Next Phase:
 - إضافة المزيد من المقالات (هدف 15+ مقال)
 - ربط WhatsApp Business API الفعلي (بدل wa.me link)
 - إضافة تتبع تذكرة للعميل (بحالة التذكرة)
+
+---
+Task ID: user-request-2
+Agent: main
+Task: إصلاح ظهور الأزرار العائمة على الشاشات الصغيرة
+
+Work Log:
+- تم تشخيص المشكلة: 3 مكونات بأزرار عائمة تتداخل على الموبايل:
+  * FloatingActions (bottom-left): واتساب + اتصال + العودة للأعلى
+  * CallbackWidget (bottom-left): زر "اتصل بي" — تداخل كامل مع FloatingActions!
+  * ChatbotWidget (bottom-right): زر "مساعد ذكي"
+- الأزرار كبيرة (56px) وتتداخل مع المحتوى على الشاشات الصغيرة
+
+الحل المطبّق:
+1. إنشاء MobileBottomBar: شريط سفلي ثابت للموبايل (sm:hidden) يحتوي على 4 أزرار:
+   - اتصال (tel: link مباشر)
+   - واتساب (wa.me link مباشر)
+   - مساعد ذكي (يفتح ChatbotWidget في controlled mode)
+   - اتصل بي (يفتح CallbackWidget في controlled mode)
+   - مع safe-area padding للـ iOS
+
+2. تعديل ChatbotWidget و CallbackWidget ليدعما controlled mode:
+   - props: controlledOpen + onControlledClose
+   - في controlled mode: لا يعرض الزر العائم، فقط المودال
+   - في uncontrolled mode (ديسكتوب): يعمل كالمعتاد
+
+3. إخفاء الأزرار العائمة على الموبايل:
+   - FloatingActions: hidden sm:flex (bottom-5 left-5)
+   - CallbackWidget: hidden sm:flex (bottom-28 left-5 — فوق FloatingActions لتفادي التداخل)
+   - ChatbotWidget: hidden sm:flex (bottom-5 right-5)
+
+4. إضافة FloatingWidgets container: يدير الحالة المشتركة بين الشريط السفلي والمودالات
+
+5. إضافة padding سفلي للموبايل: main className="pb-16 sm:pb-0" لمنع الشريط من تغطية المحتوى
+
+6. تحديث layout.tsx: استبدال المكونات المنفصلة بـ FloatingWidgets
+
+Stage Summary:
+- ✅ lint نظيف
+- ✅ جميع المسارات تعمل (200)
+- ✅ ديسكتوب: أزرار عائمة منفصلة (يسار: واتساب+اتصال+اتصل بي، يمين: مساعد ذكي)
+- ✅ موبايل: شريط سفلي أنيق بـ 4 أزرار، لا أزرار عائمة
+- ✅ المودالات تفتح من الشريط السفلي (تم اختبار chatbot)
+- ✅ الفوتر لا يُغطى بالشريط السفلي (padding سفلي)
+- ✅ safe-area support للـ iOS

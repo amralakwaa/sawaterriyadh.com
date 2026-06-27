@@ -20,7 +20,7 @@ export function FloatingActions() {
   }, []);
 
   return (
-    <div className="fixed bottom-5 left-5 z-50 flex flex-col gap-3">
+    <div className="hidden sm:flex fixed bottom-5 left-5 z-50 flex-col gap-3">
       {showTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

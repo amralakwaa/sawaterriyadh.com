@@ -5,11 +5,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
-import { FloatingActions } from "@/components/site/floating-actions";
+import { FloatingWidgets } from "@/components/site/floating-widgets";
 import { JsonLd } from "@/components/site/json-ld";
 import { PromoBanner } from "@/components/site/promo-banner";
-import { CallbackWidget } from "@/components/site/callback-widget";
-import { ChatbotWidget } from "@/components/site/chatbot-widget";
 
 const tajawal = Tajawal({
   variable: "--font-tajawal",
@@ -124,11 +122,9 @@ export default function RootLayout({
       >
         <PromoBanner />
         <SiteHeader />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pb-16 sm:pb-0">{children}</main>
         <SiteFooter />
-        <FloatingActions />
-        <CallbackWidget />
-        <ChatbotWidget />
+        <FloatingWidgets />
         <Toaster />
         <SonnerToaster position="top-center" richColors />
       </body>

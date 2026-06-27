@@ -22,8 +22,13 @@ const TIME_SLOTS = [
   { value: "night", label: "ليلاً (8 - 10)" },
 ];
 
-export function CallbackWidget() {
-  const [open, setOpen] = useState(false);
+interface CallbackWidgetProps {
+  controlledOpen?: boolean;
+  onControlledClose?: () => void;
+}
+
+export function CallbackWidget({ controlledOpen, onControlledClose }: CallbackWidgetProps = {}) {
+  const [internalOpen, setInternalOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [busy, setBusy] = useState(false);
   const [name, setName] = useState("");
@@ -31,12 +36,23 @@ export function CallbackWidget() {
   const [time, setTime] = useState("now");
   const [showHint, setShowHint] = useState(false);
 
-  // Show hint pulse after 8 seconds if not opened
+  // Controlled mode (from mobile bottom bar)
+  const isControlled = controlledOpen !== undefined;
+  const open = isControlled ? controlledOpen : internalOpen;
+  const close = () => {
+    if (isControlled) {
+      onControlledClose?.();
+    } else {
+      setInternalOpen(false);
+    }
+  };
+
+  // Show hint pulse after 8 seconds if not opened (only in uncontrolled mode)
   useEffect(() => {
-    if (open) return;
+    if (isControlled || open) return;
     const t = setTimeout(() => setShowHint(true), 8000);
     return () => clearTimeout(t);
-  }, [open]);
+  }, [open, isControlled]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,7 +83,7 @@ export function CallbackWidget() {
   };
 
   const reset = () => {
-    setOpen(false);
+    close();
     setSubmitted(false);
     setName("");
     setPhone("");
@@ -77,9 +93,9 @@ export function CallbackWidget() {
 
   return (
     <>
-      {/* Floating button */}
-      {!open && (
-        <div className="fixed bottom-5 left-5 z-50 flex flex-col items-start gap-2">
+      {/* Floating button (only in uncontrolled mode) */}
+      {!open && !isControlled && (
+        <div className="hidden sm:flex fixed bottom-28 left-5 z-50 flex-col items-start gap-2">
           {showHint && (
             <div className="animate-fade-up rounded-2xl bg-card border border-border shadow-xl p-3 max-w-[220px] relative">
               <button
@@ -96,7 +112,7 @@ export function CallbackWidget() {
             </div>
           )}
           <button
-            onClick={() => setOpen(true)}
+            onClick={() => setInternalOpen(true)}
             className="group relative flex items-center gap-2 rounded-full bg-primary text-primary-foreground pl-4 pr-2 py-2 shadow-xl hover:scale-105 transition-transform"
             aria-label="طلب اتصال فوري"
           >

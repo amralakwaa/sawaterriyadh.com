@@ -22,8 +22,13 @@ const WELCOME_MESSAGE: Message = {
     "مرحباً بك في شركة الظلال الملكية! 👋\n\nأنا مساعدك الذكي. كيف يمكنني مساعدتك اليوم؟ يمكنك سؤالي عن الأسعار، الخدمات، الضمان، أو أي استفسار آخر.",
 };
 
-export function ChatbotWidget() {
-  const [open, setOpen] = useState(false);
+interface ChatbotWidgetProps {
+  controlledOpen?: boolean;
+  onControlledClose?: () => void;
+}
+
+export function ChatbotWidget({ controlledOpen, onControlledClose }: ChatbotWidgetProps = {}) {
+  const [internalOpen, setInternalOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([WELCOME_MESSAGE]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -31,12 +36,23 @@ export function ChatbotWidget() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Show hint after 15 seconds
+  // Controlled mode (from mobile bottom bar)
+  const isControlled = controlledOpen !== undefined;
+  const open = isControlled ? controlledOpen : internalOpen;
+  const close = () => {
+    if (isControlled) {
+      onControlledClose?.();
+    } else {
+      setInternalOpen(false);
+    }
+  };
+
+  // Show hint after 15 seconds (only in uncontrolled mode)
   useEffect(() => {
-    if (open) return;
+    if (isControlled || open) return;
     const t = setTimeout(() => setShowHint(true), 15000);
     return () => clearTimeout(t);
-  }, [open]);
+  }, [open, isControlled]);
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -90,9 +106,9 @@ export function ChatbotWidget() {
 
   return (
     <>
-      {/* Floating button */}
-      {!open && (
-        <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2">
+      {/* Floating button (only in uncontrolled mode) */}
+      {!open && !isControlled && (
+        <div className="hidden sm:flex fixed bottom-5 right-5 z-50 flex-col items-end gap-2">
           {showHint && (
             <div className="animate-fade-up rounded-2xl bg-card border border-border shadow-xl p-3 max-w-[220px] relative">
               <button
@@ -113,7 +129,7 @@ export function ChatbotWidget() {
           )}
           <button
             onClick={() => {
-              setOpen(true);
+              setInternalOpen(true);
               setShowHint(false);
             }}
             className="group relative flex items-center gap-2 rounded-full bg-primary text-primary-foreground pl-4 pr-2 py-2 shadow-xl hover:scale-105 transition-transform"
@@ -153,7 +169,7 @@ export function ChatbotWidget() {
                 جديد
               </button>
               <button
-                onClick={() => setOpen(false)}
+                onClick={close}
                 className="rounded-lg p-1.5 hover:bg-background/20 transition-colors"
                 aria-label="إغلاق"
               >
@@ -218,7 +234,7 @@ export function ChatbotWidget() {
             <div className="px-4 pb-2 shrink-0">
               <Link
                 href="/quote"
-                onClick={() => setOpen(false)}
+                onClick={close}
                 className="flex items-center justify-center gap-1.5 rounded-lg bg-accent text-accent-foreground px-3 py-2 text-xs font-bold hover:brightness-110 transition"
               >
                 <Phone className="h-3.5 w-3.5" />
