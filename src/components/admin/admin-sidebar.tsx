@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { LayoutDashboard, FileText, Mail, Wrench, FolderGit2, Newspaper, MapPin, Star, LogOut, ExternalLink } from "lucide-react";
+import { LayoutDashboard, FileText, Mail, Wrench, FolderGit2, Newspaper, MapPin, Star, Ticket, LogOut, ExternalLink } from "lucide-react";
 import { db } from "@/lib/db";
 
 const navItems = [
   { href: "/admin", label: "لوحة التحكم", icon: LayoutDashboard },
   { href: "/admin/quotes", label: "طلبات التسعير", icon: FileText },
   { href: "/admin/messages", label: "الرسائل", icon: Mail },
+  { href: "/admin/tickets", label: "تذاكر الدعم", icon: Ticket },
   { href: "/admin/services", label: "الخدمات", icon: Wrench },
   { href: "/admin/projects", label: "المشاريع", icon: FolderGit2 },
   { href: "/admin/blog", label: "المدونة", icon: Newspaper },

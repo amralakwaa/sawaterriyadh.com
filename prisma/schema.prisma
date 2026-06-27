@@ -169,3 +169,20 @@ model ProcessStep {
   icon        String
   order       Int      @default(0)
 }
+
+// ===== تذاكر الدعم =====
+model SupportTicket {
+  id        String   @id @default(cuid())
+  ticketId  String   @unique // human-readable: TK-XXXX
+  name      String
+  phone     String
+  email     String?
+  subject   String
+  message   String
+  category  String   @default("general") // general, quote, complaint, maintenance, other
+  status    String   @default("open") // open, in_progress, resolved, closed
+  priority  String   @default("normal") // low, normal, high, urgent
+  response  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

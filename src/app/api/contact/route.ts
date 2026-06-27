@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { sendWhatsAppNotification } from "@/lib/notifications";
 
 export async function POST(req: NextRequest) {
   try {
@@ -22,6 +23,15 @@ export async function POST(req: NextRequest) {
         message: String(message).slice(0, 5000),
       },
     });
+
+    // Send WhatsApp notification (non-blocking)
+    sendWhatsAppNotification({
+      type: "contact",
+      name: String(name),
+      phone: String(phone),
+      email: email || null,
+      message: subject ? `${subject}: ${message}` : String(message),
+    }).catch((e) => console.error("Notification send error:", e));
 
     return NextResponse.json({ success: true, id: record.id });
   } catch (e) {

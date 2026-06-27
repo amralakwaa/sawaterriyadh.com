@@ -31,6 +31,7 @@ const secondaryLinks = [
   { href: "/areas", label: "مناطق الخدمة", desc: "أحياء الرياض" },
   { href: "/faq", label: "الأسئلة الشائعة", desc: "إجابات سريعة" },
   { href: "/team", label: "فريق العمل", desc: "خبراؤنا المتخصصون" },
+  { href: "/support", label: "الدعم والمساندة", desc: "افتح تذكرة دعم" },
   { href: "/contact", label: "تواصل معنا", desc: "كيف نصل إليك" },
 ];
 

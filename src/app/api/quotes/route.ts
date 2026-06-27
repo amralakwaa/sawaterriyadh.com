@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { SERVICES, AREAS } from "@/lib/content";
+import { sendWhatsAppNotification } from "@/lib/notifications";
 
 export async function POST(req: NextRequest) {
   try {
@@ -14,12 +14,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Resolve service slug -> id
+    // Resolve service slug -> id and get service title
     let svcId: string | undefined;
+    let svcTitle: string | undefined;
     if (serviceId) {
       try {
         const svc = await db.service.findUnique({ where: { slug: serviceId } });
         svcId = svc?.id;
+        svcTitle = svc?.title;
       } catch {
         svcId = undefined;
       }
@@ -36,6 +38,18 @@ export async function POST(req: NextRequest) {
         budget: budget || null,
       },
     });
+
+    // Send WhatsApp notification (non-blocking, fire and forget)
+    sendWhatsAppNotification({
+      type: message.includes("طلب اتصال فوري") ? "callback" : "quote",
+      name: String(name),
+      phone: String(phone),
+      email: email || null,
+      service: svcTitle,
+      area: area,
+      message: String(message),
+      budget: budget,
+    }).catch((e) => console.error("Notification send error:", e));
 
     return NextResponse.json({ success: true, id: record.id });
   } catch (e) {
