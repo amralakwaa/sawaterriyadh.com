@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getSettings, getServices, getAreas } from "@/lib/data";
 import { PageHeader } from "@/components/site/page-header";
 import { QuoteForm } from "@/components/site/quote-form";
+import { LiveVisitors } from "@/components/site/live-visitors";
 import { Phone, MessageCircle, ShieldCheck, Clock, CheckCircle2 } from "lucide-react";
 
 interface PageProps {
@@ -49,6 +50,11 @@ export default async function QuotePage({ searchParams }: PageProps) {
 
       <section className="py-16">
         <div className="container mx-auto px-4">
+          {/* Live visitors - social proof */}
+          <div className="flex justify-center mb-8">
+            <LiveVisitors />
+          </div>
+
           <div className="grid lg:grid-cols-5 gap-10">
             {/* Form */}
             <div className="lg:col-span-3">

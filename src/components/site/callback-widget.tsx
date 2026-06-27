@@ -79,7 +79,7 @@ export function CallbackWidget() {
     <>
       {/* Floating button */}
       {!open && (
-        <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2">
+        <div className="fixed bottom-5 left-5 z-50 flex flex-col items-start gap-2">
           {showHint && (
             <div className="animate-fade-up rounded-2xl bg-card border border-border shadow-xl p-3 max-w-[220px] relative">
               <button

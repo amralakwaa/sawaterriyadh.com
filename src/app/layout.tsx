@@ -9,6 +9,7 @@ import { FloatingActions } from "@/components/site/floating-actions";
 import { JsonLd } from "@/components/site/json-ld";
 import { PromoBanner } from "@/components/site/promo-banner";
 import { CallbackWidget } from "@/components/site/callback-widget";
+import { ChatbotWidget } from "@/components/site/chatbot-widget";
 
 const tajawal = Tajawal({
   variable: "--font-tajawal",
@@ -119,6 +120,7 @@ export default function RootLayout({
         <SiteFooter />
         <FloatingActions />
         <CallbackWidget />
+        <ChatbotWidget />
         <Toaster />
         <SonnerToaster position="top-center" richColors />
       </body>

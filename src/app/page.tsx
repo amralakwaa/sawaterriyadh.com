@@ -11,6 +11,7 @@ import { AreasSection } from "@/components/sections/areas";
 import { CalculatorSection } from "@/components/sections/calculator";
 import { StatsSection } from "@/components/sections/stats";
 import { TrustBar } from "@/components/sections/trust-bar";
+import { ShowCaseSection } from "@/components/sections/showcase";
 import { getFAQs, getStats } from "@/lib/data";
 
 export default async function HomePage() {
@@ -22,6 +23,7 @@ export default async function HomePage() {
       <TrustBar />
       <ServicesSection />
       <StatsSection stats={stats} />
+      <ShowCaseSection />
       <FeaturesSection />
       <CalculatorSection />
       <ProcessSection />
