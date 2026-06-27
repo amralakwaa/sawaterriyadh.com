@@ -155,12 +155,14 @@ export async function SiteFooter() {
         <div className="container mx-auto px-4 py-5">
           <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-background/50">
             <p>© {new Date().getFullYear()} {settings.name}. جميع الحقوق محفوظة.</p>
-            <div className="flex gap-4">
+            <div className="flex gap-4 flex-wrap justify-center">
               <Link href="/about" className="hover:text-accent">من نحن</Link>
               <Link href="/offers" className="hover:text-accent">العروض</Link>
               <Link href="/blog" className="hover:text-accent">المدونة</Link>
               <Link href="/contact" className="hover:text-accent">تواصل معنا</Link>
               <Link href="/quote" className="hover:text-accent">طلب تسعير</Link>
+              <Link href="/privacy" className="hover:text-accent">الخصوصية</Link>
+              <Link href="/terms" className="hover:text-accent">الشروط</Link>
             </div>
           </div>
         </div>

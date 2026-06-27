@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Phone, MessageCircle, ChevronLeft } from "lucide-react";
 import { getSettings, getServices } from "@/lib/data";
 import { MainNav, MobileNav } from "./main-nav";
+import { GlobalSearch } from "./global-search";
 
 export async function SiteHeader() {
   const [settings, services] = await Promise.all([getSettings(), getServices()]);
@@ -57,14 +58,17 @@ export async function SiteHeader() {
 
           <MainNav services={services} />
 
-          <div className="hidden lg:flex items-center gap-2">
-            <Link
-              href="/quote"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2.5 text-sm font-bold text-accent-foreground shadow-md shadow-accent/20 transition-all hover:brightness-110 hover:shadow-lg hover:shadow-accent/30"
-            >
-              اطلب تسعير مجاني
-              <ChevronLeft className="h-4 w-4" />
-            </Link>
+          <div className="flex items-center gap-2">
+            <GlobalSearch />
+            <div className="hidden lg:flex items-center gap-2">
+              <Link
+                href="/quote"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2.5 text-sm font-bold text-accent-foreground shadow-md shadow-accent/20 transition-all hover:brightness-110 hover:shadow-lg hover:shadow-accent/30"
+              >
+                اطلب تسعير مجاني
+                <ChevronLeft className="h-4 w-4" />
+              </Link>
+            </div>
           </div>
 
           <MobileNav services={services} />
