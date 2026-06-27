@@ -155,6 +155,49 @@ export default async function AboutPage() {
         </div>
       </section>
 
+      {/* Certifications teaser */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="rounded-2xl bg-gradient-to-br from-foreground to-primary text-background p-8 lg:p-12">
+            <div className="grid lg:grid-cols-3 gap-8 items-center">
+              <div className="lg:col-span-1">
+                <span className="inline-block rounded-full bg-accent/15 px-4 py-1.5 text-xs font-bold text-accent mb-3">
+                  اعتماداتنا
+                </span>
+                <h2 className="font-display text-2xl lg:text-3xl font-bold mb-3">
+                  معتمدون وموثوقون
+                </h2>
+                <p className="text-background/80 text-sm mb-5 leading-relaxed">
+                  نحمل اعتمادات رسمية من الدفاع المدني، SASO، غرفة الرياض، وشهادة ISO 9001 للجودة.
+                </p>
+                <Link
+                  href="/certifications"
+                  className="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-3 text-sm font-bold text-accent-foreground hover:brightness-110 transition"
+                >
+                  عرض جميع الشهادات
+                  <ArrowLeft className="h-4 w-4" />
+                </Link>
+              </div>
+              <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {[
+                  { name: "الدفاع المدني", icon: "🛡️" },
+                  { name: "SASO", icon: "✓" },
+                  { name: "غرفة الرياض", icon: "🏢" },
+                  { name: "ISO 9001", icon: "⭐" },
+                  { name: "منشآت", icon: "📋" },
+                  { name: "VAT معتمد", icon: "🧾" },
+                ].map((c, i) => (
+                  <div key={i} className="rounded-xl bg-background/10 backdrop-blur-sm p-4 text-center">
+                    <div className="text-3xl mb-1">{c.icon}</div>
+                    <p className="text-xs font-bold text-background">{c.name}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <TestimonialsSection />
       <CtaQuoteSection />
     </>

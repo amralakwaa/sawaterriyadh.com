@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Phone, Mail, MapPin, Clock, MessageCircle, Send } from "lucide-react";
+import Link from "next/link";
+import { Phone, Mail, MapPin, Clock, MessageCircle, Send, HelpCircle, ChevronLeft } from "lucide-react";
 import { getSettings } from "@/lib/data";
 import { PageHeader } from "@/components/site/page-header";
 import { ContactForm } from "@/components/site/contact-form";
@@ -126,6 +127,57 @@ export default async function ContactPage() {
                 </div>
                 <ContactForm />
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick FAQ */}
+      <section className="py-12 bg-secondary/40 border-t border-border">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-8">
+              <span className="inline-block rounded-full bg-accent/15 px-4 py-1.5 text-xs font-bold text-accent mb-3">
+                أسئلة سريعة
+              </span>
+              <h2 className="font-display text-2xl lg:text-3xl font-bold">
+                قد تجد إجابتك هنا
+              </h2>
+              <p className="text-muted-foreground mt-2 text-sm">
+                الأسئلة الأكثر شيوعاً قبل التواصل معنا
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {[
+                { q: "كم تستغرق مدة التركيب؟", a: "معظم المشاريع السكنية تنفذ خلال 24-48 ساعة، حسب الحجم." },
+                { q: "هل المعاينة مجانية؟", a: "نعم، نقدم معاينة مجانية للموقع وعرض سعر تفصيلي بدون التزام." },
+                { q: "ما هي مدة الضمان؟", a: "ضمان حتى 15 سنة على الهياكل الحديدية، و10 سنوات على المواد." },
+                { q: "ما هي مناطق الخدمة؟", a: "نخدم جميع أحياء الرياض والمناطق المحيطة بها." },
+              ].map((faq, i) => (
+                <Link
+                  key={i}
+                  href="/faq"
+                  className="group rounded-2xl border border-border bg-card p-5 hover:border-primary hover:shadow-md transition-all"
+                >
+                  <h3 className="font-bold text-sm mb-2 group-hover:text-primary transition-colors flex items-start gap-2">
+                    <HelpCircle className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                    {faq.q}
+                  </h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed pr-6">{faq.a}</p>
+                  <span className="text-xs font-bold text-primary mt-2 inline-block group-hover:text-accent transition-colors">
+                    المزيد ←
+                  </span>
+                </Link>
+              ))}
+            </div>
+            <div className="text-center mt-6">
+              <Link
+                href="/faq"
+                className="inline-flex items-center gap-2 rounded-xl border-2 border-primary px-5 py-2.5 text-sm font-bold text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
+                عرض جميع الأسئلة
+                <ChevronLeft className="h-4 w-4" />
+              </Link>
             </div>
           </div>
         </div>

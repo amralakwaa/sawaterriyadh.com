@@ -27,6 +27,7 @@ const primaryLinks = [
 const secondaryLinks = [
   { href: "/compare", label: "مقارنة المظلات", desc: "قارن بين الأنواع" },
   { href: "/loyalty", label: "برنامج الولاء", desc: "اكسب نقاط ومكافآت", badge: "جديد" },
+  { href: "/certifications", label: "الشهادات والاعتمادات", desc: "اعتماداتنا الرسمية" },
   { href: "/areas", label: "مناطق الخدمة", desc: "أحياء الرياض" },
   { href: "/faq", label: "الأسئلة الشائعة", desc: "إجابات سريعة" },
   { href: "/team", label: "فريق العمل", desc: "خبراؤنا المتخصصون" },
