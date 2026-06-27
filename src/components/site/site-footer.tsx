@@ -13,7 +13,7 @@ export async function SiteFooter() {
   const featuredAreas = areas.filter((a) => a.featured).slice(0, 5);
 
   return (
-    <footer className="mt-auto bg-foreground text-background">
+    <footer className="mt-auto bg-foreground text-background pb-20 sm:pb-0">
       {/* CTA strip */}
       <div className="bg-gradient-to-l from-primary to-accent">
         <div className="container mx-auto px-4 py-8">
