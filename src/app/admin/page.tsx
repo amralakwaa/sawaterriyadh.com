@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FileText, Mail, Wrench, FolderGit2, Newspaper, TrendingUp, Clock, Phone, ArrowLeft } from "lucide-react";
 import { db } from "@/lib/db";
 import { getSettings } from "@/lib/data";
+import { QuotesChart } from "@/components/admin/quotes-chart";
 
 export const metadata = { title: "لوحة التحكم" };
 
@@ -52,6 +53,8 @@ export default async function AdminDashboard() {
   };
   let recentQuotes: any[] = [];
   let recentMessages: any[] = [];
+  let quoteTrends: { date: string; count: number }[] = [];
+  let statusData: { name: string; value: number; color: string }[] = [];
 
   try {
     const [quotes, newQuotes, messages, newMessages, services, projects, blogPosts, contactedQuotes, wonQuotes] =
@@ -76,6 +79,37 @@ export default async function AdminDashboard() {
       orderBy: { createdAt: "desc" },
       take: 5,
     });
+
+    // Build 14-day trend
+    const allQuotes = await db.quoteRequest.findMany({
+      select: { createdAt: true, status: true },
+    });
+    const days: { date: string; count: number }[] = [];
+    const now = new Date();
+    for (let i = 13; i >= 0; i--) {
+      const day = new Date(now);
+      day.setDate(now.getDate() - i);
+      day.setHours(0, 0, 0, 0);
+      const next = new Date(day);
+      next.setDate(day.getDate() + 1);
+      const count = allQuotes.filter((q) => q.createdAt >= day && q.createdAt < next).length;
+      days.push({
+        date: new Intl.DateTimeFormat("ar-SA", { month: "numeric", day: "numeric" }).format(day),
+        count,
+      });
+    }
+    quoteTrends = days;
+
+    // Status distribution
+    const lostQuotes = await db.quoteRequest.count({ where: { status: "lost" } });
+    const quotedQuotes = await db.quoteRequest.count({ where: { status: "quoted" } });
+    statusData = [
+      { name: "جديد", value: newQuotes, color: "var(--accent)" },
+      { name: "تم التواصل", value: contactedQuotes, color: "var(--primary)" },
+      { name: "تم التسعير", value: quotedQuotes, color: "#8b5cf6" },
+      { name: "مكتسب", value: wonQuotes, color: "#10b981" },
+      { name: "مفقود", value: lostQuotes, color: "var(--destructive)" },
+    ];
   } catch (e) {
     console.error("Dashboard error:", e);
   }
@@ -114,6 +148,9 @@ export default async function AdminDashboard() {
         <StatCard icon={Newspaper} label="مقالات المدونة" value={stats.blogPosts} color="primary" />
         <StatCard icon={Clock} label="طلبات جديدة" value={stats.newQuotes} hint="تحتاج متابعة" color="destructive" />
       </div>
+
+      {/* Charts */}
+      <QuotesChart trends={quoteTrends} statusData={statusData} />
 
       {/* Recent activity */}
       <div className="grid lg:grid-cols-2 gap-6">

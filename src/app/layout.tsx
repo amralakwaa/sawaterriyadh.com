@@ -7,6 +7,7 @@ import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { FloatingActions } from "@/components/site/floating-actions";
 import { JsonLd } from "@/components/site/json-ld";
+import { PromoBanner } from "@/components/site/promo-banner";
 
 const tajawal = Tajawal({
   variable: "--font-tajawal",
@@ -111,6 +112,7 @@ export default function RootLayout({
       <body
         className={`${tajawal.variable} ${cairo.variable} font-sans antialiased bg-background text-foreground min-h-screen flex flex-col`}
       >
+        <PromoBanner />
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />

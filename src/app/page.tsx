@@ -8,16 +8,22 @@ import { FaqSection } from "@/components/sections/faq";
 import { CtaQuoteSection } from "@/components/sections/cta-quote";
 import { BlogPreviewSection } from "@/components/sections/blog-preview";
 import { AreasSection } from "@/components/sections/areas";
-import { getFAQs } from "@/lib/data";
+import { CalculatorSection } from "@/components/sections/calculator";
+import { StatsSection } from "@/components/sections/stats";
+import { TrustBar } from "@/components/sections/trust-bar";
+import { getFAQs, getStats } from "@/lib/data";
 
 export default async function HomePage() {
-  const faqs = await getFAQs();
+  const [faqs, stats] = await Promise.all([getFAQs(), getStats()]);
 
   return (
     <>
       <HeroSection />
+      <TrustBar />
       <ServicesSection />
+      <StatsSection stats={stats} />
       <FeaturesSection />
+      <CalculatorSection />
       <ProcessSection />
       <ProjectsSection />
       <CtaQuoteSection />

@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { db } from "@/lib/db";
-import { Star } from "lucide-react";
+import { Star, Plus } from "lucide-react";
 import { DeleteButton } from "@/components/admin/delete-button";
 
 export const metadata = { title: "آراء العملاء - لوحة التحكم" };
@@ -14,9 +15,15 @@ export default async function AdminTestimonialsPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-display text-2xl lg:text-3xl font-extrabold">آراء العملاء</h1>
-        <p className="text-muted-foreground mt-1">{testimonials.length} رأي</p>
+      <div className="flex items-center justify-between flex-wrap gap-3">
+        <div>
+          <h1 className="font-display text-2xl lg:text-3xl font-extrabold">آراء العملاء</h1>
+          <p className="text-muted-foreground mt-1">{testimonials.length} رأي</p>
+        </div>
+        <Link href="/admin/testimonials/new" className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground hover:brightness-110">
+          <Plus className="h-4 w-4" />
+          إضافة رأي
+        </Link>
       </div>
 
       <div className="grid sm:grid-cols-2 gap-4">
