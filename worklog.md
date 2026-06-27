@@ -562,3 +562,37 @@ Unresolved / Next Phase:
 - إضافة dashboard للعميل (تتبع نقاط الولاء)
 - إضافة محاسبة العميل (تتبع المشاريع)
 - إضافة نظام تذاكر دعم
+
+---
+Task ID: user-request-1
+Agent: main
+Task: تحديث رقم التواصل + إضافة مطوّر الفوتر + Google Search Console verification
+
+Work Log:
+- تم تحديث رقم الهاتف من 0501234567 إلى 0534926846 في:
+  * src/lib/content.ts (SITE constant: phone, phoneDisplay, whatsapp)
+  * قاعدة البيانات (SiteSetting table) عبر scripts/update-phone.ts
+  * src/components/site/floating-actions.tsx (default state)
+  * src/components/site/chatbot-widget.tsx (2 مواقع)
+  * src/app/not-found.tsx (tel link + display)
+  * src/app/api/chat/route.ts (fallback message)
+  * src/app/compare/page.tsx (stat card)
+- رقم الواتساب: 966534926846 (تحويل الصيغة السعودية)
+- تم البحث والتأكد: لا توجد أرقام قديمة متبقية (grep نظيف)
+
+- تم إضافة Google Search Console verification:
+  * metadata.verification.google = "9_-L3ik-bWNTSr6L5hGxMJeqhk_JLBpszY4HBNr0-Iw"
+  * يولّد Next.js تلقائياً meta tag في <head>
+
+- تم إضافة credit المطوّر في الفوتر:
+  * سطر: "تصميم وتطوير المهندس عمر بلال الأكوع" 
+  * رقم: +967 780 475 125 (tel:+967780475125)
+  * مع تصميم أنيق (flex row، لون أفتح، divider)
+
+Stage Summary:
+- ✅ lint نظيف
+- ✅ جميع الصفحات تستخدم الرقم الجديد 0534926846 للاتصال
+- ✅ جميع روابط الواتساب تستخدم 966534926846
+- ✅ Google verification meta tag موجود في HTML
+- ✅ credit المطوّر يظهر في الفوتر (تم التحقق بصرياً عبر VLM)
+- تم التحقق من الصفحات: /، /contact، /quote - جميعها تستخدم الأرقام الجديدة

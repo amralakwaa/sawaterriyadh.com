@@ -75,7 +75,7 @@ export function ChatbotWidget() {
         ...prev,
         {
           role: "assistant",
-          content: "عذراً، حدث خطأ. يرجى الاتصال بنا على 0501234567.",
+          content: "عذراً، حدث خطأ. يرجى الاتصال بنا على 0534926846.",
         },
       ]);
     } finally {
@@ -255,7 +255,7 @@ export function ChatbotWidget() {
               </button>
             </div>
             <p className="text-[10px] text-muted-foreground text-center mt-1.5">
-              مدعوم بالذكاء الاصطناعي • للطوارئ اتصل 0501234567
+              مدعوم بالذكاء الاصطناعي • للطوارئ اتصل 0534926846
             </p>
           </div>
         </div>

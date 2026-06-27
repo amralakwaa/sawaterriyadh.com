@@ -186,7 +186,7 @@ export default async function ComparePage() {
               { icon: Award, value: "4", label: "أنواع للمقارنة" },
               { icon: TrendingUp, value: "+3500", label: "مشروع منجز" },
               { icon: Shield, value: "15 سنة", label: "ضمان موثّق" },
-              { icon: Phone, value: "0501234567", label: "استشارة مجانية" },
+              { icon: Phone, value: "0534926846", label: "استشارة مجانية" },
             ].map((s, i) => (
               <div key={i} className="text-center">
                 <s.icon className="h-7 w-7 mx-auto text-primary mb-2" />

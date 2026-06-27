@@ -165,6 +165,19 @@ export async function SiteFooter() {
               <Link href="/terms" className="hover:text-accent">الشروط</Link>
             </div>
           </div>
+          {/* Developer credit */}
+          <div className="mt-4 pt-4 border-t border-background/10 flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-background/40">
+            <span>تصميم وتطوير المهندس</span>
+            <span className="font-bold text-background/70">عمر بلال الأكوع</span>
+            <span className="hidden sm:inline">•</span>
+            <a
+              href="tel:+967780475125"
+              dir="ltr"
+              className="hover:text-accent transition-colors font-semibold"
+            >
+              +967 780 475 125
+            </a>
+          </div>
         </div>
       </div>
     </footer>

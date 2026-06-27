@@ -6,7 +6,7 @@ import { getSettings } from "@/lib/data";
 
 export function FloatingActions() {
   const [showTop, setShowTop] = useState(false);
-  const [settings, setSettings] = useState({ phone: "0501234567", whatsapp: "966501234567" });
+  const [settings, setSettings] = useState({ phone: "0534926846", whatsapp: "966534926846" });
 
   useEffect(() => {
     fetch("/api/settings")

@@ -97,6 +97,9 @@ export const metadata: Metadata = {
     apple: "/logo.svg",
   },
   category: "business",
+  verification: {
+    google: "9_-L3ik-bWNTSr6L5hGxMJeqhk_JLBpszY4HBNr0-Iw",
+  },
 };
 
 export default function RootLayout({

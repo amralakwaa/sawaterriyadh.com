@@ -48,11 +48,11 @@ export default function NotFound() {
         <div className="rounded-2xl bg-gradient-to-br from-primary to-accent text-background p-6">
           <p className="text-sm text-background/80 mb-2">أو تواصل معنا مباشرة</p>
           <a
-            href="tel:0501234567"
+            href="tel:0534926846"
             className="inline-flex items-center gap-2 rounded-xl bg-background px-6 py-3 text-base font-bold text-primary hover:scale-105 transition"
           >
             <Phone className="h-5 w-5" />
-            <span dir="ltr">050 123 4567</span>
+            <span dir="ltr">053 492 6846</span>
           </a>
         </div>
       </div>
