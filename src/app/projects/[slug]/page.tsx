@@ -7,6 +7,7 @@ import { getProjectBySlug, getProjects, getServiceBySlug, getSettings, getAreas 
 import { PageHeader } from "@/components/site/page-header";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
 import { GalleryLightbox } from "@/components/site/gallery-lightbox";
+import { ProjectRatingWidget } from "@/components/site/project-rating";
 import { CtaQuoteSection } from "@/components/sections/cta-quote";
 
 interface PageProps {
@@ -118,6 +119,9 @@ export default async function ProjectPage({ params }: PageProps) {
                   </div>
                 )}
               </div>
+
+              {/* Rating widget */}
+              <ProjectRatingWidget projectSlug={project.slug} />
             </div>
 
             <aside className="space-y-6">

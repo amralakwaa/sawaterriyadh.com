@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -13,25 +13,32 @@ import {
 } from "@/components/ui/sheet";
 import type { ServiceData } from "@/lib/content";
 
-const navLinks = [
+// Primary links shown directly in nav (keep ≤ 6 for clean look)
+const primaryLinks = [
   { href: "/", label: "الرئيسية" },
   { href: "/services", label: "خدماتنا", hasMenu: true },
   { href: "/projects", label: "أعمالنا" },
-  { href: "/compare", label: "مقارنة المظلات" },
   { href: "/offers", label: "العروض", badge: "خصم" },
-  { href: "/areas", label: "مناطق الخدمة" },
   { href: "/blog", label: "المدونة" },
-  { href: "/faq", label: "الأسئلة" },
   { href: "/about", label: "من نحن" },
-  { href: "/contact", label: "تواصل معنا" },
+];
+
+// Secondary links in "المزيد" dropdown
+const secondaryLinks = [
+  { href: "/compare", label: "مقارنة المظلات", desc: "قارن بين الأنواع" },
+  { href: "/areas", label: "مناطق الخدمة", desc: "أحياء الرياض" },
+  { href: "/faq", label: "الأسئلة الشائعة", desc: "إجابات سريعة" },
+  { href: "/team", label: "فريق العمل", desc: "خبراؤنا المتخصصون" },
+  { href: "/contact", label: "تواصل معنا", desc: "كيف نصل إليك" },
 ];
 
 export function MainNav({ services }: { services: ServiceData[] }) {
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
 
   return (
-    <nav className="hidden lg:flex items-center gap-1">
-      {navLinks.map((link) =>
+    <nav className="hidden lg:flex items-center gap-0.5">
+      {primaryLinks.map((link) =>
         link.hasMenu ? (
           <div
             key={link.href}
@@ -78,9 +85,40 @@ export function MainNav({ services }: { services: ServiceData[] }) {
           </Link>
         )
       )}
+
+      {/* "More" dropdown */}
+      <div
+        className="relative"
+        onMouseEnter={() => setMoreOpen(true)}
+        onMouseLeave={() => setMoreOpen(false)}
+      >
+        <button className="flex items-center gap-1 px-3 py-2 text-sm font-semibold text-foreground/80 hover:text-primary transition-colors rounded-md">
+          <MoreHorizontal className="h-4 w-4" />
+          المزيد
+          <ChevronDown className={`h-3.5 w-3.5 transition-transform ${moreOpen ? "rotate-180" : ""}`} />
+        </button>
+        {moreOpen && (
+          <div className="absolute top-full left-0 pt-2 w-64 z-50">
+            <div className="rounded-xl border border-border bg-popover p-2 shadow-xl shadow-primary/10">
+              {secondaryLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-secondary transition-colors"
+                >
+                  <span className="text-sm font-bold text-foreground">{link.label}</span>
+                  <span className="text-xs text-muted-foreground">{link.desc}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </nav>
   );
 }
+
+const allNavLinks = [...primaryLinks, ...secondaryLinks];
 
 export function MobileNav({ services }: { services: ServiceData[] }) {
   const [open, setOpen] = useState(false);
@@ -98,14 +136,19 @@ export function MobileNav({ services }: { services: ServiceData[] }) {
           <SheetTitle className="text-right">القائمة</SheetTitle>
         </SheetHeader>
         <div className="flex flex-col gap-1">
-          {navLinks.map((link) => (
+          {allNavLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="rounded-lg px-4 py-3 text-sm font-semibold hover:bg-secondary"
+              className="flex items-center justify-between rounded-lg px-4 py-3 text-sm font-semibold hover:bg-secondary"
             >
               {link.label}
+              {link.badge && (
+                <span className="rounded-full bg-accent px-1.5 py-0.5 text-[10px] font-bold text-accent-foreground">
+                  {link.badge}
+                </span>
+              )}
             </Link>
           ))}
         </div>

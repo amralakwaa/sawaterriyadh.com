@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getSettings, getServices, getAreas } from "@/lib/data";
 import { PageHeader } from "@/components/site/page-header";
-import { QuoteForm } from "@/components/site/quote-form";
+import { QuoteFormSwitcher } from "@/components/site/quote-form-switcher";
 import { LiveVisitors } from "@/components/site/live-visitors";
 import { Phone, MessageCircle, ShieldCheck, Clock, CheckCircle2 } from "lucide-react";
 
@@ -65,7 +65,7 @@ export default async function QuotePage({ searchParams }: PageProps) {
                     الحقول المطلوبة مشار إليها بـ <span className="text-destructive">*</span>
                   </p>
                 </div>
-                <QuoteForm
+                <QuoteFormSwitcher
                   services={services.map((s) => ({ slug: s.slug, title: s.title }))}
                   areas={areas.map((a) => ({ slug: a.slug, name: a.name }))}
                   defaultService={service}
