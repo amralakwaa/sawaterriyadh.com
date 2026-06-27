@@ -3,25 +3,15 @@ import Link from "next/link";
 import { Phone, MessageCircle, Star, ShieldCheck, ChevronLeft } from "lucide-react";
 import { getSettings, getStats } from "@/lib/data";
 import { Icon } from "@/components/site/icon";
+import { HeroCarousel } from "@/components/site/hero-carousel";
 
 export async function HeroSection() {
   const [settings, stats] = await Promise.all([getSettings(), getStats()]);
 
   return (
     <section className="relative overflow-hidden bg-foreground">
-      {/* Background image */}
-      <div className="absolute inset-0">
-        <Image
-          src="https://sfile.chatglm.cn/images-ppt/304f69241716.jpg"
-          alt="مظلات وسواتر الرياض - شركة الظلال الملكية"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-hero-overlay" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-30" />
-      </div>
+      {/* Background carousel */}
+      <HeroCarousel />
 
       {/* Decorative blobs */}
       <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-accent/20 blur-3xl" />

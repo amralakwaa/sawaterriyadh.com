@@ -17,9 +17,11 @@ const navLinks = [
   { href: "/", label: "الرئيسية" },
   { href: "/services", label: "خدماتنا", hasMenu: true },
   { href: "/projects", label: "أعمالنا" },
+  { href: "/compare", label: "مقارنة المظلات" },
   { href: "/offers", label: "العروض", badge: "خصم" },
   { href: "/areas", label: "مناطق الخدمة" },
   { href: "/blog", label: "المدونة" },
+  { href: "/faq", label: "الأسئلة" },
   { href: "/about", label: "من نحن" },
   { href: "/contact", label: "تواصل معنا" },
 ];
