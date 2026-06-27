@@ -18,8 +18,8 @@ const primaryLinks = [
   { href: "/", label: "الرئيسية" },
   { href: "/services", label: "خدماتنا", hasMenu: true },
   { href: "/projects", label: "أعمالنا" },
+  { href: "/pricing", label: "الأسعار" },
   { href: "/offers", label: "العروض", badge: "خصم" },
-  { href: "/blog", label: "المدونة" },
   { href: "/about", label: "من نحن" },
 ];
 
