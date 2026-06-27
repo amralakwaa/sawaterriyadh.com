@@ -3,6 +3,7 @@ import { Phone, MessageCircle, ChevronLeft } from "lucide-react";
 import { getSettings, getServices } from "@/lib/data";
 import { MainNav, MobileNav } from "./main-nav";
 import { GlobalSearch } from "./global-search";
+import { ThemeToggle } from "./theme-toggle";
 
 export async function SiteHeader() {
   const [settings, services] = await Promise.all([getSettings(), getServices()]);
@@ -60,6 +61,7 @@ export async function SiteHeader() {
 
           <div className="flex items-center gap-2">
             <GlobalSearch />
+            <ThemeToggle />
             <div className="hidden lg:flex items-center gap-2">
               <Link
                 href="/quote"

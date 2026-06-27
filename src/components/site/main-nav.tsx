@@ -26,6 +26,7 @@ const primaryLinks = [
 // Secondary links in "المزيد" dropdown
 const secondaryLinks = [
   { href: "/compare", label: "مقارنة المظلات", desc: "قارن بين الأنواع" },
+  { href: "/loyalty", label: "برنامج الولاء", desc: "اكسب نقاط ومكافآت", badge: "جديد" },
   { href: "/areas", label: "مناطق الخدمة", desc: "أحياء الرياض" },
   { href: "/faq", label: "الأسئلة الشائعة", desc: "إجابات سريعة" },
   { href: "/team", label: "فريق العمل", desc: "خبراؤنا المتخصصون" },
@@ -104,10 +105,17 @@ export function MainNav({ services }: { services: ServiceData[] }) {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="flex flex-col gap-0.5 rounded-lg p-2.5 hover:bg-secondary transition-colors"
+                  className="flex items-start justify-between gap-2 rounded-lg p-2.5 hover:bg-secondary transition-colors"
                 >
-                  <span className="text-sm font-bold text-foreground">{link.label}</span>
-                  <span className="text-xs text-muted-foreground">{link.desc}</span>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-sm font-bold text-foreground">{link.label}</span>
+                    <span className="text-xs text-muted-foreground">{link.desc}</span>
+                  </div>
+                  {link.badge && (
+                    <span className="shrink-0 rounded-full bg-accent px-1.5 py-0.5 text-[10px] font-bold text-accent-foreground mt-0.5">
+                      {link.badge}
+                    </span>
+                  )}
                 </Link>
               ))}
             </div>
