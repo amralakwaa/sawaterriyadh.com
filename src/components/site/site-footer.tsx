@@ -157,6 +157,7 @@ export async function SiteFooter() {
             <p>© {new Date().getFullYear()} {settings.name}. جميع الحقوق محفوظة.</p>
             <div className="flex gap-4">
               <Link href="/about" className="hover:text-accent">من نحن</Link>
+              <Link href="/offers" className="hover:text-accent">العروض</Link>
               <Link href="/blog" className="hover:text-accent">المدونة</Link>
               <Link href="/contact" className="hover:text-accent">تواصل معنا</Link>
               <Link href="/quote" className="hover:text-accent">طلب تسعير</Link>

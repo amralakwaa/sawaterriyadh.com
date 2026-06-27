@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { ArrowLeft, Phone, Mail, MapPin } from "lucide-react";
+import { ExportQuotes } from "@/components/admin/export-quotes";
 
 export const metadata = { title: "طلبات التسعير - لوحة التحكم" };
 
@@ -39,6 +40,7 @@ export default async function AdminQuotesPage({
           <h1 className="font-display text-2xl lg:text-3xl font-extrabold">طلبات التسعير</h1>
           <p className="text-muted-foreground mt-1">{quotes.length} طلب</p>
         </div>
+        <ExportQuotes quotes={quotes} />
       </div>
 
       <div className="flex flex-wrap gap-2">

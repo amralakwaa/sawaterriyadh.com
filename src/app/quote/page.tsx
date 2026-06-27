@@ -5,7 +5,7 @@ import { QuoteForm } from "@/components/site/quote-form";
 import { Phone, MessageCircle, ShieldCheck, Clock, CheckCircle2 } from "lucide-react";
 
 interface PageProps {
-  searchParams: Promise<{ service?: string }>;
+  searchParams: Promise<{ service?: string; coupon?: string }>;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function QuotePage({ searchParams }: PageProps) {
-  const { service } = await searchParams;
+  const { service, coupon } = await searchParams;
   const [settings, services, areas] = await Promise.all([
     getSettings(),
     getServices(),
@@ -32,6 +32,20 @@ export default async function QuotePage({ searchParams }: PageProps) {
         subtitle="املأ النموذج التالي واحصل على عرض سعر تفصيلي خلال 24 ساعة - بدون أي رسوم أو التزام"
         crumbs={[{ name: "طلب تسعير" }]}
       />
+
+      {coupon && (
+        <div className="bg-gradient-to-l from-accent/15 to-primary/10 border-y border-accent/20">
+          <div className="container mx-auto px-4 py-3 flex items-center justify-center gap-3 flex-wrap">
+            <span className="flex items-center gap-1.5 text-sm font-bold text-accent">
+              🎁 كود الخصم المُطبّق:
+            </span>
+            <span className="font-mono font-bold text-primary text-base tracking-wider px-3 py-1 rounded-lg bg-background border-2 border-dashed border-primary/40" dir="ltr">
+              {coupon}
+            </span>
+            <span className="text-xs text-muted-foreground">سيتم تطبيق الخصم عند تأكيد الطلب</span>
+          </div>
+        </div>
+      )}
 
       <section className="py-16">
         <div className="container mx-auto px-4">

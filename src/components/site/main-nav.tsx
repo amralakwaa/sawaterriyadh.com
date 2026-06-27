@@ -17,6 +17,7 @@ const navLinks = [
   { href: "/", label: "الرئيسية" },
   { href: "/services", label: "خدماتنا", hasMenu: true },
   { href: "/projects", label: "أعمالنا" },
+  { href: "/offers", label: "العروض", badge: "خصم" },
   { href: "/areas", label: "مناطق الخدمة" },
   { href: "/blog", label: "المدونة" },
   { href: "/about", label: "من نحن" },
@@ -64,9 +65,14 @@ export function MainNav({ services }: { services: ServiceData[] }) {
           <Link
             key={link.href}
             href={link.href}
-            className="px-3 py-2 text-sm font-semibold text-foreground/80 hover:text-primary transition-colors rounded-md hover:bg-secondary/60"
+            className="flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-foreground/80 hover:text-primary transition-colors rounded-md hover:bg-secondary/60"
           >
             {link.label}
+            {link.badge && (
+              <span className="rounded-full bg-accent px-1.5 py-0.5 text-[10px] font-bold text-accent-foreground">
+                {link.badge}
+              </span>
+            )}
           </Link>
         )
       )}

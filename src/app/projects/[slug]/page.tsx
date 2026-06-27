@@ -6,6 +6,7 @@ import Link from "next/link";
 import { getProjectBySlug, getProjects, getServiceBySlug, getSettings, getAreas } from "@/lib/data";
 import { PageHeader } from "@/components/site/page-header";
 import { Breadcrumbs } from "@/components/site/breadcrumbs";
+import { GalleryLightbox } from "@/components/site/gallery-lightbox";
 import { CtaQuoteSection } from "@/components/sections/cta-quote";
 
 interface PageProps {
@@ -96,17 +97,8 @@ export default async function ProjectPage({ params }: PageProps) {
                 />
               </div>
 
-              {project.gallery.length > 1 && (
-                <div>
-                  <h3 className="font-display font-bold text-lg mb-3">صور إضافية</h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    {project.gallery.map((img, i) => (
-                      <div key={i} className="relative aspect-square rounded-xl overflow-hidden border border-border">
-                        <Image src={img} alt={`${project.title} - صورة ${i + 1}`} fill sizes="33vw" className="object-cover" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              {project.gallery.length > 0 && (
+                <GalleryLightbox images={project.gallery} alt={project.title} />
               )}
 
               <div className="rounded-2xl border border-border bg-card p-6">
